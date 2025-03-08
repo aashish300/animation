@@ -1,0 +1,19 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  gap: 30px;
+  color: #fff;
+
+  &_question {
+    align-self: end;
+    color: #020202;
+    background: #fff;
+    border-radius: 10px;
+    padding: 10px;
+  }
+
+  &_answer {
+    align-self: start;
+  }
+}
