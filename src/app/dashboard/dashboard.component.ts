@@ -1,6 +1,6 @@
 import {Component, inject, OnInit, signal} from '@angular/core';
 import {Router} from '@angular/router';
-import {AnimationTextComponent} from '../common/component/animation-text/animation-text.component';
+import {AnimationTextComponent} from '../common/animation-text/animation-text.component';
 
 @Component({
   selector: 'app-dashboard',

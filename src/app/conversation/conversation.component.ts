@@ -1,5 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {AnimationTextComponent} from '../common/component/animation-text/animation-text.component';
+import {AnimationTextComponent} from '../common/animation-text/animation-text.component';
 import {Router} from '@angular/router';
 
 @Component({
