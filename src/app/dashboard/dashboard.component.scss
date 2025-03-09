@@ -12,14 +12,15 @@
       }
     }
     &-message {
-      color: #fff;
-      font-weight: bold;
-      font-size: 45px;
-      line-height: 45px;
-      padding: 0 20px 0 20px;
-
-      font-optical-sizing: auto;
-      font-style: normal;
+      &-body {
+        color: #fff;
+        font-weight: bold;
+        padding: 0 20px 0 20px;
+        box-sizing: border-box;
+        vertical-align: middle;
+        font-size: 45px;
+        line-height: 45px;
+      }
 
       .animated_element {
         border-right: 4px solid #fff;
