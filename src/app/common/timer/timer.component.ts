@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, signal} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit, signal} from '@angular/core';
 
 @Component({
   selector: 'app-timer',
@@ -6,11 +6,13 @@ import {Component, Input, OnInit, signal} from '@angular/core';
   templateUrl: './timer.component.html',
   styleUrl: './timer.component.scss'
 })
-export class TimerComponent implements OnInit {
+export class TimerComponent implements OnInit, OnDestroy {
 
   @Input() time: number = 0;
 
   protected timer = signal(0);
+
+  private interval: any;
 
 
   ngOnInit() {
@@ -19,12 +21,13 @@ export class TimerComponent implements OnInit {
       timeArray.push(i);
     }
 
-    const interval = setInterval(() => {
+    this.interval = setInterval(() => {
       this.timer.set(<number>timeArray.pop());
-      if(timeArray.length <= 0) {
-        clearInterval(interval);
-      }
     },1000)
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.interval);
   }
 
 }
