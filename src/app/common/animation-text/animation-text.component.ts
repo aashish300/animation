@@ -23,32 +23,28 @@ export class AnimationTextComponent implements OnInit {
   protected active = true;
 
 
-  delayInterval = {
-    add: 200,
-    remove: 100
-  };
-
   ngOnInit() {
+    this.animationLoop();
   }
 
   animationLoop() {
 
-    let initial = 0;
     const blinkEffect = (times: number, callback: any) => {
+    let initial = 0;
       const interval = setInterval(() => {
-        initial++
-        this.active = !this.active
+        initial++;
+        this.active = !this.active;
+        if(initial >= times) {
+          clearInterval(interval)
+          callback();
+        }
       },200)
-      if(initial === times) {
-        clearInterval(interval)
-        callback();
-      }
     };
 
     let i = 0;
     const animationStep = () => {
       if (i < this.content.length) {
-        const text = this.content[i];
+        const text = Array.isArray(this.content) ? this.content[i] : this.content;
         let el = 0;
 
         const step = () => {
@@ -59,10 +55,10 @@ export class AnimationTextComponent implements OnInit {
             setTimeout(() => {
               el++;
               requestAnimationFrame(step);
-            }, this.delayInterval.add);
+            }, this.speed.forward);
           } else {
             if (!this.backward) return;
-            blinkEffect(3, () => {
+            blinkEffect(8, () => {
 
               // After completing text, start removing characters
               let del = text.length - 1;
@@ -73,7 +69,7 @@ export class AnimationTextComponent implements OnInit {
                   setTimeout(() => {
                     del--;
                     requestAnimationFrame(removeStep);
-                  }, this.delayInterval.remove);
+                  }, this.speed.backward);
                 } else {
                   // After removal, move to the next text
                   i++;

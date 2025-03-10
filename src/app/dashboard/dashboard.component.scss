@@ -1,11 +1,13 @@
 .wrapper {
 
-
   &_timer {
-
+    justify-self: start;
+    flex: 1;
+    color: #fff;
   }
 
   &_content {
+    flex: 2;
     &-comment {
       .svg {
         //background: url("../assets/icons/comment.svg");
