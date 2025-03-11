@@ -1,4 +1,5 @@
-import {Component, Input, OnInit, signal} from '@angular/core';
+import {Component, inject, Input, OnInit, PLATFORM_ID, signal} from '@angular/core';
+import {isPlatformBrowser} from '@angular/common';
 
 interface SpeedType {
   forward: number;
@@ -21,16 +22,20 @@ export class AnimationTextComponent implements OnInit {
   @Input() loop = false;
 
   protected active = true;
+  private platformId = inject(PLATFORM_ID);
 
 
   ngOnInit() {
-    this.animationLoop();
+    setTimeout(() => {
+      if(isPlatformBrowser(this.platformId)) {
+        this.animationLoop();
+      }
+    }, 0)
   }
 
   animationLoop() {
-
     const blinkEffect = (times: number, callback: any) => {
-    let initial = 0;
+      let initial = 0;
       const interval = setInterval(() => {
         initial++;
         this.active = !this.active;
@@ -84,7 +89,7 @@ export class AnimationTextComponent implements OnInit {
 
         requestAnimationFrame(step);
       } else {
-        this.animationLoop()
+        this.animationLoop();
       }
     };
 

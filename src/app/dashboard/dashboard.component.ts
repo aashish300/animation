@@ -1,7 +1,8 @@
-import {Component, inject, OnDestroy, OnInit, signal} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit, PLATFORM_ID, signal} from '@angular/core';
 import {Router} from '@angular/router';
 import {AnimationTextComponent} from '../common/animation-text/animation-text.component';
 import {TimerComponent} from '../common/timer/timer.component';
+import {isPlatformBrowser} from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,12 +26,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   private interval: any;
 
+  private platformId = inject(PLATFORM_ID);
+
   protected time = 10;
 
   ngOnInit() {
-    this.interval = setTimeout(() => {
-      this.route.navigate(['/conversation']);
-    },(this.time +1) * 1000)
+    if(isPlatformBrowser(this.platformId)) {
+      this.interval = setTimeout(() => {
+        this.route.navigate(['/conversation']);
+      },(this.time+1)*1000)
+    }
   }
 
   ngOnDestroy() {

@@ -1,8 +1,8 @@
-import {Component, inject, OnDestroy, OnInit} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit, PLATFORM_ID} from '@angular/core';
 import {AnimationTextComponent} from '../common/animation-text/animation-text.component';
 import {Router} from '@angular/router';
-import {clearTimeout} from 'node:timers';
 import {TimerComponent} from '../common/timer/timer.component';
+import {isPlatformBrowser} from '@angular/common';
 
 @Component({
   selector: 'app-conversation',
@@ -30,11 +30,14 @@ export class ConversationComponent implements OnInit, OnDestroy {
 
   private interval: any;
 
+  private platformId = inject(PLATFORM_ID);
+
   ngOnInit() {
-    if(typeof window === 'undefined') return;
-    this.interval = setTimeout(() => {
-      this.route.navigate(['/dashboard']);
-    },(this.time+1)*1000)
+    if(isPlatformBrowser(this.platformId)) {
+      this.interval = setTimeout(() => {
+        this.route.navigate(['/dashboard']);
+      },(this.time+1)*1000)
+    }
   }
 
   ngOnDestroy() {

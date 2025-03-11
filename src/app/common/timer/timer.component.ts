@@ -1,4 +1,5 @@
-import {Component, Input, OnDestroy, OnInit, signal} from '@angular/core';
+import {Component, inject, Input, OnDestroy, OnInit, PLATFORM_ID, signal} from '@angular/core';
+import {isPlatformServer} from '@angular/common';
 
 @Component({
   selector: 'app-timer',
@@ -14,15 +15,17 @@ export class TimerComponent implements OnInit, OnDestroy {
 
   private interval: any;
 
+  private platformId = inject(PLATFORM_ID);
 
   ngOnInit() {
+    if(isPlatformServer(this.platformId)) return;
     const timeArray: number[] | undefined = [];
-    for(let i = 1; i <= this.time; i++) {
+    for(let i =   1; i <= this.time; i++) {
       timeArray.push(i);
     }
 
-    this.interval = setInterval(() => {
-      this.timer.set(<number>timeArray.pop());
+     this.interval = setInterval(() => {
+      this.timer.set((<number>timeArray.pop()))
     },1000)
   }
 
