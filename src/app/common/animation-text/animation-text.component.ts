@@ -1,4 +1,15 @@
-import {Component, inject, Input, OnInit, PLATFORM_ID, signal} from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  NgZone,
+  OnInit,
+  Output,
+  PLATFORM_ID,
+  signal
+} from '@angular/core';
 import {isPlatformBrowser} from '@angular/common';
 
 interface SpeedType {
@@ -16,13 +27,16 @@ export class AnimationTextComponent implements OnInit {
 
   protected animatedElement = signal('');
 
-  @Input() backward = false;
   @Input() speed!: SpeedType;
   @Input() content!: string | string[];
   @Input() loop = false;
 
+  @Output() complete = new EventEmitter<boolean>();
+
   protected active = true;
   private platformId = inject(PLATFORM_ID);
+  private ngZone = inject(NgZone);
+  private changeDetectorRef = inject(ChangeDetectorRef);
 
 
   ngOnInit() {
@@ -62,34 +76,44 @@ export class AnimationTextComponent implements OnInit {
               requestAnimationFrame(step);
             }, this.speed.forward);
           } else {
-            if (!this.backward) return;
-            blinkEffect(8, () => {
+            if(this.loop) {
+              blinkEffect(8, () => {
 
-              // After completing text, start removing characters
-              let del = text.length - 1;
-              const removeStep = () => {
-                if (del >= 0) {
-                  this.animatedElement.update(e => e.slice(0, -1));
+                // After completing text, start removing characters
+                let del = text.length - 1;
+                const removeStep = () => {
+                  if (del >= 0) {
+                    this.animatedElement.update(e => e.slice(0, -1));
 
-                  setTimeout(() => {
-                    del--;
-                    requestAnimationFrame(removeStep);
-                  }, this.speed.backward);
-                } else {
-                  // After removal, move to the next text
-                  i++;
-                  requestAnimationFrame(animationStep);
-                }
-              };
+                    setTimeout(() => {
+                      del--;
+                      requestAnimationFrame(removeStep);
+                    }, this.speed.backward);
+                  } else {
+                    // After removal, move to the next text
+                    i++;
+                    requestAnimationFrame(animationStep);
+                  }
+                };
 
-              requestAnimationFrame(removeStep);
-            })
+                requestAnimationFrame(removeStep);
+              })
+            }else {
+              this.active = false;
+              this.ngZone.run(() => {
+                this.complete.emit(true);
+                this.changeDetectorRef.detectChanges();
+              })
+            }
           }
         }
 
-        requestAnimationFrame(step);
+        this.ngZone.run(() => requestAnimationFrame(step));
       } else {
-        this.animationLoop();
+        this.ngZone.run(() => {
+          this.complete.emit(true);
+          this.animationLoop();
+        })
       }
     };
 

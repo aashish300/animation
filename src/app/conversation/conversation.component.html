@@ -1,9 +1,16 @@
-<div class="wrapper">
+<div #wrapper class="wrapper">
   <div class="wrapper_timer">
-    <app-timer [time]="time"></app-timer>
+    @if (isTimerStart()) {
+      <app-timer [time]="time"></app-timer>
+    }
   </div>
-  <div class="wrapper_question">how can capa help us as a company?</div>
-  <div class="wrapper_answer">
-    <app-animation-text [backward]="false" [speed]="speed" [loop]="false" [content]="answer"></app-animation-text>
-  </div>
+  @for (chat of animatedChat(); track chat; let i = $index) {
+    @if (chat) {
+      <div #question class="wrapper_question">{{ chat?.question }}</div>
+      <div #answer class="wrapper_answer">
+        <app-animation-text [speed]="speed" [loop]="false" [content]="chat.answer"
+                            (complete)="nextAnimation($event, i)"></app-animation-text>
+      </div>
+    }
+  }
 </div>

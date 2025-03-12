@@ -17,7 +17,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   private route: Router = inject(Router);
 
-  protected animationContent = signal(['Webshop', 'manufacturing', 'retail', 'business finance']);
+  // protected animationContent = signal(['Webshop', 'manufacturing', 'retail', 'business finance']);
+  protected animationContent = signal(['Webshop', 'manufacturing']);
+
+  protected isTimerStart = signal(false);
 
   protected speed = {
     forward: 100,
@@ -30,12 +33,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   protected time = 10;
 
-  ngOnInit() {
-    if(isPlatformBrowser(this.platformId)) {
-      this.interval = setTimeout(() => {
-        this.route.navigate(['/conversation']);
-      },(this.time+1)*1000)
+  startTimer(timer: any) {
+    if (isPlatformBrowser(this.platformId) && timer) {
+      this.isTimerStart.set(true);
+        this.interval = setTimeout(() => {
+          this.route.navigate(['/conversation']);
+        }, (this.time + 1) * 1000)
     }
+  }
+
+  ngOnInit() {
   }
 
   ngOnDestroy() {

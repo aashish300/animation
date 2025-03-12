@@ -11,7 +11,7 @@ export class TimerComponent implements OnInit, OnDestroy {
 
   @Input() time: number = 0;
 
-  protected timer = signal(0);
+  protected timer = signal(10);
 
   private interval: any;
 
