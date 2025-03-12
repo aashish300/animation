@@ -30,6 +30,7 @@ export class AnimationTextComponent implements OnInit {
   @Input() speed!: SpeedType;
   @Input() content!: string | string[];
   @Input() loop = false;
+  @Input() type = '';
 
   @Output() complete = new EventEmitter<boolean>();
 

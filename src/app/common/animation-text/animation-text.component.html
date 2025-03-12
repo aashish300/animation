@@ -1,1 +1,8 @@
-<span [class]="{'border-right': active, 'border-none': !active }"> {{ animatedElement() }}</span>
+<span> {{ animatedElement() }}</span>
+@if (active) {
+  @if (type==='chat') {
+    <span class="chat">|</span>
+  } @else {
+    <span class="dashboard">|</span>
+  }
+}

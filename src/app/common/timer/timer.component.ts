@@ -2,12 +2,12 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
-  ElementRef,
+  ElementRef, EventEmitter,
   inject,
   Input,
   OnChanges,
   OnDestroy,
-  OnInit,
+  OnInit, Output,
   PLATFORM_ID,
   signal, ViewChild
 } from '@angular/core';
@@ -28,6 +28,8 @@ export class TimerComponent implements OnInit, OnDestroy, OnChanges, AfterViewIn
   @Input() time: number = 0;
   @ViewChild('circle') circle!: any;
 
+  @Output() isTimerComplete = new EventEmitter<boolean>();
+
   private interval: any;
 
   private platformId = inject(PLATFORM_ID);
@@ -38,7 +40,7 @@ export class TimerComponent implements OnInit, OnDestroy, OnChanges, AfterViewIn
   ngAfterViewInit() {
     if(isPlatformServer(this.platformId)) return;
     const timeArray: number[] | undefined = [];
-    for(let i =   1; i <= this.time; i++) {
+    for(let i =   0; i <= this.time; i++) {
       timeArray.push(i);
     }
 
@@ -51,6 +53,11 @@ export class TimerComponent implements OnInit, OnDestroy, OnChanges, AfterViewIn
       const progress = (this.timer()/initalTime);
       if(!isNaN(progress)) {
         this.circle.nativeElement.style.strokeDashoffset = strokeLength - progress*strokeLength;
+        if(strokeLength === strokeLength-progress*strokeLength) {
+          setTimeout(() => {
+            this.isTimerComplete.emit(true);
+          },0)
+        }
         this.changeDetectorRef.detectChanges();
       }
     },1000);

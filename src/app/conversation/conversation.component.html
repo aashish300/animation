@@ -1,9 +1,9 @@
 <div #wrapper class="wrapper">
   @for (chat of animatedChat(); track chat; let i = $index) {
     @if (chat) {
-      <div #question class="wrapper_question">{{ chat?.question }}</div>
-      <div #answer class="wrapper_answer">
-        <app-animation-text [speed]="speed" [loop]="false" [content]="chat.answer"
+      <div class="wrapper_question" @fadeIn>{{ chat?.question }}</div>
+      <div class="wrapper_answer">
+        <app-animation-text [type]="'chat'" [speed]="speed" [loop]="false" [content]="chat.answer"
                             (complete)="nextAnimation($event, i)"></app-animation-text>
       </div>
     }
