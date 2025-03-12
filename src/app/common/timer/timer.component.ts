@@ -51,7 +51,6 @@ export class TimerComponent implements OnInit, OnDestroy, OnChanges, AfterViewIn
       const progress = (this.timer()/initalTime);
       if(!isNaN(progress)) {
         this.circle.nativeElement.style.strokeDashoffset = strokeLength - progress*strokeLength;
-        console.log(this.circle.nativeElement.style.strokeDashoffset)
         this.changeDetectorRef.detectChanges();
       }
     },1000);
