@@ -1,5 +1,9 @@
 <div [@routeAnimations]="getRouteAnimationData()">
   <div class="container">
+        @if (animationService.isTimerStart()) {
+<!--        @if (true) {-->
+          <app-timer [time]="animationService.count()"></app-timer>
+        }
     <router-outlet></router-outlet>
   </div>
 </div>

@@ -13,6 +13,7 @@ import {AnimationTextComponent} from '../common/animation-text/animation-text.co
 import {Router} from '@angular/router';
 import {isPlatformBrowser} from '@angular/common';
 import {ChatList} from '../constant/chat';
+import {AnimationService} from '../common/service/animation.service';
 
 interface ChatType {
   question: string,
@@ -30,6 +31,8 @@ interface ChatType {
 export class ConversationComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   private route: Router = inject(Router);
+  private animationService = inject(AnimationService);
+
   @ViewChild('wrapper') wrapper!: ElementRef;
   @ViewChild('answer') answer!: ElementRef;
 
@@ -38,8 +41,7 @@ export class ConversationComponent implements OnInit, OnDestroy, AfterViewChecke
     forward: 10
   }
 
-  protected time = 2;
-  protected isTimerStart = signal(false);
+  protected time = 10;
 
   private interval: any;
 
@@ -49,8 +51,6 @@ export class ConversationComponent implements OnInit, OnDestroy, AfterViewChecke
 
   protected animatedChat = signal<ChatType[]>([]);
 
-  private previousHeight = 0;
-
   ngOnInit() {
     this.animatedChat.set([this.chatList[0]]);
 
@@ -58,7 +58,7 @@ export class ConversationComponent implements OnInit, OnDestroy, AfterViewChecke
   }
 
   ngAfterViewChecked() {
-    if(this.wrapper.nativeElement.scrollHeight >= this.wrapper.nativeElement.clientHeight) {
+    if(this.wrapper.nativeElement.scrollHeight >= this.wrapper.nativeElement.clientHeight && !this.animationService.isTimerStart()) {
       this.scrollToBottom();
     }
   }
@@ -75,7 +75,8 @@ export class ConversationComponent implements OnInit, OnDestroy, AfterViewChecke
 
   nextAnimation(event: any, i : number) {
     if(i >= this.chatList.length-1) {
-      this.isTimerStart.set(true);
+      this.animationService.count.set(this.time);
+      this.animationService.isTimerStart.set(true);
       if(isPlatformBrowser(this.platformId)) {
         this.interval = setTimeout(() => {
           this.route.navigate(['/dashboard']);
@@ -91,6 +92,8 @@ export class ConversationComponent implements OnInit, OnDestroy, AfterViewChecke
   }
 
   ngOnDestroy() {
+    this.animationService.isTimerStart.set(false);
+    this.animationService.count.set(0);
     clearInterval(this.interval);
   }
 

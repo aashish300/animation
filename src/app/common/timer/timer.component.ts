@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnDestroy, OnInit, PLATFORM_ID, signal} from '@angular/core';
+import {Component, inject, Input, OnChanges, OnDestroy, OnInit, PLATFORM_ID, signal} from '@angular/core';
 import {isPlatformServer} from '@angular/common';
 
 @Component({
@@ -7,7 +7,7 @@ import {isPlatformServer} from '@angular/common';
   templateUrl: './timer.component.html',
   styleUrl: './timer.component.scss'
 })
-export class TimerComponent implements OnInit, OnDestroy {
+export class TimerComponent implements OnInit, OnDestroy, OnChanges {
 
   @Input() time: number = 0;
 
@@ -27,6 +27,18 @@ export class TimerComponent implements OnInit, OnDestroy {
      this.interval = setInterval(() => {
       this.timer.set((<number>timeArray.pop()))
     },1000)
+  }
+
+  ngOnChanges() {
+    // if(isPlatformServer(this.platformId)) return;
+    // const timeArray: number[] | undefined = [];
+    // for(let i =   1; i <= this.time; i++) {
+    //   timeArray.push(i);
+    // }
+    //
+    // this.interval = setInterval(() => {
+    //   this.timer.set((<number>timeArray.pop()))
+    // },1000)
   }
 
   ngOnDestroy() {
