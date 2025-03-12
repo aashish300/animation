@@ -33,10 +33,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   startTimer(timer: any) {
     if (isPlatformBrowser(this.platformId) && timer) {
-      console.log('start timer')
       this.animationService.isTimerStart.set(true);
       this.animationService.count.set(this.time);
-      console.log(this.animationService.count())
         this.interval = setTimeout(() => {
           this.route.navigate(['/conversation']);
         }, (this.time + 1) * 1000)

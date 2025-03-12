@@ -53,8 +53,6 @@ export class ConversationComponent implements OnInit, OnDestroy, AfterViewChecke
 
   ngOnInit() {
     this.animatedChat.set([this.chatList[0]]);
-
-
   }
 
   ngAfterViewChecked() {
