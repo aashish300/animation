@@ -1,5 +1,5 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {Router, RouterOutlet} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {RouterOutlet} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +9,7 @@ import {Router, RouterOutlet} from '@angular/router';
 })
 export class AppComponent implements OnInit {
 
-  private route: Router = inject(Router);
+
 
   ngOnInit() {
   }

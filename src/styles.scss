@@ -11,23 +11,3 @@ body {
   font-family: sans-serif;
 }
 
-.wrapper {
-  min-height: 800px;
-  max-height: 800px;
-  width: 350px;
-  padding: 25px;
-  overflow-y: auto;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-  border: 2px solid black;
-  border-radius: 40px;
-  background-color: #62526c;
-  scrollbar-gutter: stable;
-
-  font-family: "Baloo Bhaijaan 2", sans-serif;
-
-}

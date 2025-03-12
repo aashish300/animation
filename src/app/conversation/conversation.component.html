@@ -1,9 +1,4 @@
 <div #wrapper class="wrapper">
-  <div class="wrapper_timer">
-    @if (isTimerStart()) {
-      <app-timer [time]="time"></app-timer>
-    }
-  </div>
   @for (chat of animatedChat(); track chat; let i = $index) {
     @if (chat) {
       <div #question class="wrapper_question">{{ chat?.question }}</div>

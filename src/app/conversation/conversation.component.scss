@@ -4,6 +4,14 @@
   justify-content: start;
   gap: 30px;
   color: #fff;
+  min-height: 800px;
+  max-height: 800px;
+  width: 350px;
+  padding: 25px;
+  overflow-y: auto;
+
+  align-items: center;
+
 
   &_question {
     align-self: end;

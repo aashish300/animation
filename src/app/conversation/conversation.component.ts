@@ -3,17 +3,14 @@ import {
   Component,
   ElementRef,
   inject,
-  Input,
   OnDestroy,
   OnInit,
   PLATFORM_ID,
   signal,
-  ViewChild,
-  viewChild
+  ViewChild
 } from '@angular/core';
 import {AnimationTextComponent} from '../common/animation-text/animation-text.component';
 import {Router} from '@angular/router';
-import {TimerComponent} from '../common/timer/timer.component';
 import {isPlatformBrowser} from '@angular/common';
 import {ChatList} from '../constant/chat';
 
@@ -25,8 +22,7 @@ interface ChatType {
 @Component({
   selector: 'app-conversation',
   imports: [
-    AnimationTextComponent,
-    TimerComponent
+    AnimationTextComponent
   ],
   templateUrl: './conversation.component.html',
   styleUrl: './conversation.component.scss'
@@ -42,7 +38,7 @@ export class ConversationComponent implements OnInit, OnDestroy, AfterViewChecke
     forward: 10
   }
 
-  protected time = 10;
+  protected time = 2;
   protected isTimerStart = signal(false);
 
   private interval: any;
@@ -78,8 +74,6 @@ export class ConversationComponent implements OnInit, OnDestroy, AfterViewChecke
   }
 
   nextAnimation(event: any, i : number) {
-    console.log(i);
-    console.log(this.chatList.length)
     if(i >= this.chatList.length-1) {
       this.isTimerStart.set(true);
       if(isPlatformBrowser(this.platformId)) {
