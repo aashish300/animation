@@ -1,34 +1,60 @@
 <div class="wrapper">
-  <div class="wrapper_timer">
-  </div>
+  <div class="wrapper_timer"></div>
   <div class="wrapper_content">
     <div class="wrapper_content-comment">
-      <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" id="comment" width="60" height="40" x="0" y="0" version="1.1" viewBox="0 0 32 32">
-    <defs>
-        <filter id="shadow">
-            <feOffset dx="2" dy="2" result="offset"/>
-          <feFlood flood-color="black" result="flood"/>
-          <feComposite in="flood" in2="offset" operator="in" result="color"/>
-          <feMerge>
-                <feMergeNode in="color"/>
-            <feMergeNode in="SourceGraphic"/>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        xml:space="preserve"
+        id="comment"
+        width="60"
+        height="40"
+        x="0"
+        y="0"
+        version="1.1"
+        viewBox="0 0 32 32"
+      >
+        <defs>
+          <filter id="shadow">
+            <feOffset dx="2" dy="2" result="offset" />
+            <feFlood flood-color="black" result="flood" />
+            <feComposite in="flood" in2="offset" operator="in" result="color" />
+            <feMerge>
+              <feMergeNode in="color" />
+              <feMergeNode in="SourceGraphic" />
             </feMerge>
-        </filter>
-    </defs>
-        <rect x="0" y="0" width="32" height="32" fill="black" opacity="0"/>
-        <path stroke="#000000" stroke-width="1" filter="url(#shadow)" fill="white"
-              d="M0 2v21a2 2 0 0 0 2 2h18l8 7v-7h2a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2z">
-    </path>
-        <text x="50%" y="50%" font-size="12" font-weight="800" fill="#362143" text-anchor="middle" alignment-baseline="middle">Capa</text>
-</svg>
-
-
+          </filter>
+        </defs>
+        <rect x="0" y="0" width="32" height="32" fill="black" opacity="0" />
+        <path
+          stroke="#000000"
+          stroke-width="1"
+          filter="url(#shadow)"
+          fill="white"
+          d="M0 2v21a2 2 0 0 0 2 2h18l8 7v-7h2a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2z"
+        ></path>
+        <text
+          x="50%"
+          y="50%"
+          font-size="12"
+          font-weight="800"
+          fill="#362143"
+          text-anchor="middle"
+          alignment-baseline="middle"
+        >
+          Capa
+        </text>
+      </svg>
     </div>
     <div class="wrapper_content-message">
       <div class="wrapper_content-message-body">
         Build Your Customized Ai Assistant in 5 min for your
-        <app-animation-text [type]="'dashboard'" [speed]="speed" [loop]="true" [content]="animationContent()"
-                            (complete)="startTimer($event)"></app-animation-text>
+        <app-animation-text
+          [type]="'dashboard'"
+          [speed]="speed"
+          [loop]="true"
+          [content]="animationContent"
+          (complete)="startTimer($event)"
+        ></app-animation-text>
       </div>
       <div class="wrapper_content-message-animation"></div>
     </div>

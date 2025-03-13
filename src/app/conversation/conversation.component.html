@@ -1,11 +1,14 @@
 <div #wrapper class="wrapper">
-  @for (chat of animatedChat(); track chat; let i = $index) {
-    @if (chat) {
-      <div class="wrapper_question" @fadeIn>{{ chat?.question }}</div>
-      <div class="wrapper_answer">
-        <app-animation-text [type]="'chat'" [speed]="speed" [loop]="false" [content]="chat.answer"
-                            (complete)="nextAnimation($event, i)"></app-animation-text>
-      </div>
-    }
-  }
+  @for (chat of animatedChat(); track chat; let i = $index) { @if (chat) {
+  <div class="wrapper_question" @fadeIn>{{ chat?.question }}</div>
+  <div class="wrapper_answer">
+    <app-animation-text
+      type="chat"
+      [speed]="speed"
+      [loop]="false"
+      [content]="chat.answer"
+      (complete)="nextAnimation($event, i)"
+    ></app-animation-text>
+  </div>
+  } }
 </div>
