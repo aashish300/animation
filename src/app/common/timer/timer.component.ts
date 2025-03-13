@@ -56,7 +56,7 @@ export class TimerComponent implements OnInit, OnDestroy, OnChanges, AfterViewIn
         if(strokeLength === strokeLength-progress*strokeLength) {
           setTimeout(() => {
             this.isTimerComplete.emit(true);
-          },0)
+          },1000)
         }
         this.changeDetectorRef.detectChanges();
       }

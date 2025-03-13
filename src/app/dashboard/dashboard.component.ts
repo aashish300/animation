@@ -1,5 +1,4 @@
 import {Component, inject, OnDestroy, OnInit, PLATFORM_ID, signal} from '@angular/core';
-import {Router} from '@angular/router';
 import {AnimationTextComponent} from '../common/animation-text/animation-text.component';
 import {isPlatformBrowser} from '@angular/common';
 import {AnimationService} from '../common/service/animation.service';
@@ -14,7 +13,6 @@ import {AnimationService} from '../common/service/animation.service';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
-  private route: Router = inject(Router);
   private animationService = inject(AnimationService);
 
   protected animationContent = signal(['Webshop', 'manufacturing', 'retail', 'business finance']);

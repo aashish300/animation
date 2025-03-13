@@ -1,17 +1,5 @@
-import {
-  AfterViewChecked, AfterViewInit,
-  Component,
-  ElementRef,
-  inject,
-  OnDestroy,
-  OnInit,
-  PLATFORM_ID,
-  signal,
-  ViewChild
-} from '@angular/core';
+import {AfterViewChecked, Component, ElementRef, inject, OnDestroy, OnInit, signal, ViewChild} from '@angular/core';
 import {AnimationTextComponent} from '../common/animation-text/animation-text.component';
-import {Router} from '@angular/router';
-import {isPlatformBrowser} from '@angular/common';
 import {ChatList} from '../constant/chat';
 import {AnimationService} from '../common/service/animation.service';
 import {animate, style, transition, trigger} from '@angular/animations';
@@ -39,7 +27,6 @@ interface ChatType {
 })
 export class ConversationComponent implements OnInit, OnDestroy, AfterViewChecked {
 
-  private route: Router = inject(Router);
   private animationService = inject(AnimationService);
 
   @ViewChild('wrapper') wrapper!: ElementRef;
@@ -53,7 +40,6 @@ export class ConversationComponent implements OnInit, OnDestroy, AfterViewChecke
 
   private interval: any;
 
-  private platformId = inject(PLATFORM_ID);
 
   protected chatList = ChatList;
 
@@ -66,7 +52,9 @@ export class ConversationComponent implements OnInit, OnDestroy, AfterViewChecke
   }
 
   ngAfterViewChecked() {
-    if(this.wrapper.nativeElement.scrollHeight >= this.wrapper.nativeElement.clientHeight && !this.animationService.isTimerStart()) {
+    const element = this.wrapper.nativeElement;
+    const isAutoScrollEnabled = element.scrollTop + element.clientHeight >= element.scrollHeight - 50;
+    if(element.scrollHeight >= element.clientHeight && !this.animationService.isTimerStart() && isAutoScrollEnabled) {
       this.scrollToBottom();
     }
   }
@@ -86,11 +74,6 @@ export class ConversationComponent implements OnInit, OnDestroy, AfterViewChecke
     if(i >= this.chatList.length-1) {
       this.animationService.isTimerStart.set(true);
       this.animationService.count.set(this.time);
-      if(isPlatformBrowser(this.platformId)) {
-        // this.interval = setTimeout(() => {
-        //   this.route.navigate(['/dashboard']);
-        // },(this.time+.5)*1000)
-      }
       return;
     }else {
       this.animatedChat.update((e: any) => [...e, this.chatList[i+1]]);
