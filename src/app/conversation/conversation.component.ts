@@ -53,8 +53,8 @@ export class ConversationComponent implements OnInit, OnDestroy, AfterViewChecke
 
   ngAfterViewChecked() {
     const element = this.wrapper.nativeElement;
-    const isAutoScrollEnabled = element.scrollTop + element.clientHeight >= element.scrollHeight - 50;
-    if(element.scrollHeight >= element.clientHeight && !this.animationService.isTimerStart() && isAutoScrollEnabled) {
+    // const isAutoScrollEnabled = element.scrollTop + element.clientHeight >= element.scrollHeight - 50;
+    if(element.scrollHeight >= element.clientHeight && !this.animationService.isTimerStart()) {
       this.scrollToBottom();
     }
   }

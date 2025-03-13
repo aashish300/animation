@@ -101,20 +101,16 @@ export class AnimationTextComponent implements OnInit {
               })
             }else {
               this.active = false;
-              this.ngZone.run(() => {
-                this.complete.emit(true);
-                this.changeDetectorRef.detectChanges();
-              })
+              this.complete.emit(true);
+              this.changeDetectorRef.detectChanges();
             }
           }
         }
 
-        this.ngZone.run(() => requestAnimationFrame(step));
+        requestAnimationFrame(step);
       } else {
-        this.ngZone.run(() => {
-          this.complete.emit(true);
-          this.animationLoop();
-        })
+        this.complete.emit(true);
+        this.animationLoop();
       }
     };
 
