@@ -32,8 +32,6 @@ export default class DashboardComponent implements OnDestroy {
     backward: 50,
   };
 
-  private interval: any;
-
   protected time = 10;
 
   startTimer(timer: any) {
@@ -46,6 +44,5 @@ export default class DashboardComponent implements OnDestroy {
   ngOnDestroy() {
     this.animationService.isTimerStart.set(false);
     this.animationService.count.set(0);
-    clearInterval(this.interval);
   }
 }

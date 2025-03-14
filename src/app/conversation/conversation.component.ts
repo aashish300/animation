@@ -87,7 +87,6 @@ export default class ConversationComponent
     if (i >= this.chatList.length - 1) {
       this.animationService.isTimerStart.set(true);
       this.animationService.count.set(this.time);
-      return;
     } else {
       this.animatedChat.update((e: any) => [...e, this.chatList[i + 1]]);
     }

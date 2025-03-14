@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   EventEmitter,
@@ -22,7 +21,6 @@ interface SpeedType {
   imports: [],
   templateUrl: './animation-text.component.html',
   styleUrl: './animation-text.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AnimationTextComponent implements OnInit {
   protected animatedElement = signal('');

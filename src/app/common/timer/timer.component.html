@@ -1,9 +1,11 @@
 <div class="timer">
-  <div class="time">
-    <span id="minute"> {{ timer() }}</span>
+  <div class="timer_wrapper">
+    <div class="time">
+      <span id="minute"> {{ timer() }}</span>
+    </div>
+    <svg width="40" height="40">
+      <circle id="circle1" cx="20" cy="20" r="15"></circle>
+      <circle #circle id="circle2" cx="20" cy="20" r="15"></circle>
+    </svg>
   </div>
-  <svg width="50" height="50">
-    <circle id="circle1" cx="20" cy="20" r="15"></circle>
-    <circle #circle id="circle2" cx="20" cy="20" r="15"></circle>
-  </svg>
 </div>

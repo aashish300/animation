@@ -1,17 +1,21 @@
 
 .timer{
   position: absolute;
-  right: -6%;
-  bottom: -2%;
-  transform: translate(-50%, -50%)
+  right: 25px;
+  bottom: 20px;
 }
 
+.timer_wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .time {
-  position: absolute;
-  left: 40%;
-  top: 45%;
-  transform: translate(-50%, -50%)
+  //position: absolute;
+  //top: 10px;
+  //left: 13px;
 }
 
 .time{
@@ -20,8 +24,9 @@
 }
 
 svg{
-  display: inline-block;
-  vertical-align: middle;
+  position: absolute;
+  //display: inline-block;
+  //vertical-align: middle;
 }
 circle{
   stroke-width: 5px;

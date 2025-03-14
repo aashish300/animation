@@ -2,14 +2,15 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
-  ElementRef, EventEmitter,
+  EventEmitter,
   inject,
   Input,
-  OnChanges,
   OnDestroy,
-  OnInit, Output,
+  OnInit,
+  Output,
   PLATFORM_ID,
-  signal, ViewChild
+  signal,
+  ViewChild
 } from '@angular/core';
 import {isPlatformServer} from '@angular/common';
 
@@ -19,7 +20,7 @@ import {isPlatformServer} from '@angular/common';
   templateUrl: './timer.component.html',
   styleUrl: './timer.component.scss'
 })
-export class TimerComponent implements OnInit, OnDestroy, OnChanges, AfterViewInit {
+export class TimerComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private changeDetectorRef = inject(ChangeDetectorRef);
 
@@ -32,25 +33,29 @@ export class TimerComponent implements OnInit, OnDestroy, OnChanges, AfterViewIn
 
   private interval: any;
 
+
   private platformId = inject(PLATFORM_ID);
+
+  private isServer = isPlatformServer(this.platformId);
 
   ngOnInit() {
   }
 
   ngAfterViewInit() {
-    if(isPlatformServer(this.platformId)) return;
+    if(this.isServer) return;
     const timeArray: number[] | undefined = [];
     for(let i =   0; i <= this.time; i++) {
       timeArray.push(i);
     }
 
-    const initalTime = this.timer();
+    const initialTime = this.timer();
 
     const strokeLength = this.circle.nativeElement.getTotalLength();
     this.circle.nativeElement.style.strokeDasharray = strokeLength;
-    this.interval = setInterval(() => {
+
+    const updateTimer = () => {
       this.timer.set((<number>timeArray.pop()));
-      const progress = (this.timer()/initalTime);
+      const progress = (this.timer()/initialTime);
       if(!isNaN(progress)) {
         this.circle.nativeElement.style.strokeDashoffset = strokeLength - progress*strokeLength;
         if(strokeLength === strokeLength-progress*strokeLength) {
@@ -60,15 +65,16 @@ export class TimerComponent implements OnInit, OnDestroy, OnChanges, AfterViewIn
         }
         this.changeDetectorRef.detectChanges();
       }
-    },1000);
+    };
+
+    updateTimer();
+    this.interval = setInterval(updateTimer, 1000);
+
   }
 
-  ngOnChanges() {
-
-  }
 
   ngOnDestroy() {
     clearInterval(this.interval);
   }
-
 }
+
